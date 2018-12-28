@@ -1,25 +1,34 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
+import Modal from "./Modal";
 
 class App extends Component {
+  state = {
+    isOpen: false
+  };
+
+  toggleModal = () => {
+    this.setState(({ isOpen }) => ({ isOpen: !isOpen }));
+  };
+
+  handleClose = () => {
+    this.setState(({ isOpen }) => ({ isOpen: false }));
+  };
+
   render() {
+    const { isOpen } = this.state;
+
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <button type="button" onClick={this.toggleModal}>
+          Modal
+        </button>
+
+        <Modal isOpen={isOpen} onClose={this.handleClose}>
+          <Modal.Header>Header</Modal.Header>
+          <Modal.Content>Content</Modal.Content>
+          <Modal.Button>Close</Modal.Button>
+        </Modal>
       </div>
     );
   }
